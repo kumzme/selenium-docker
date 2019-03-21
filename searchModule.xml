@@ -1,0 +1,27 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name = "serach-module">
+    <test name = "serach-test-java">
+        <parameter name = "searchKeyword" value = "java" />
+        <classes>
+            <class name = "com.searchModule.tests.SerachTest" />
+        </classes>
+    </test>
+    <test name = "serach-test-Web">
+        <parameter name = "searchKeyword" value = "webdriver" />
+        <classes>
+            <class name = "com.searchModule.tests.SerachTest" />
+        </classes>
+    </test>
+    <test name = "serach-test-kerbernetes">
+        <parameter name = "searchKeyword" value = "kerbernetes" />
+        <classes>
+            <class name = "com.searchModule.tests.SerachTest" />
+        </classes>
+    </test>
+    <test name = "serach-test-docker">
+        <parameter name = "searchKeyword" value = "docker" />
+        <classes>
+            <class name = "com.searchModule.tests.SerachTest" />
+        </classes>
+    </test>
+</suite>
