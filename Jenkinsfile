@@ -11,7 +11,7 @@ pipeline {
          }
          stage('Build Image') {
            steps {
-           	bat "docker built -it= 'learndocker01.seleniumdocker' ."
+           	bat "docker built  -t 'learndocker01.seleniumdocker' ."
             }
          }
         stage('Push Image') {
