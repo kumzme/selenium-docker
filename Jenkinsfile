@@ -18,8 +18,8 @@ pipeline {
            steps {
              withCredentials([usernamePassword(credentials: 'Dockerhud', passwordVariable: 'pass', usernameVariable: 'user')]
 	        //sh
-   	           bat "docker login --username=${user} --password=${pass}"
-	           bat "docker push learndocker01/selenium-docker:latest"
+   	          //bat "docker login --username=${user} --password=${pass}"
+	          bat "docker push learndocker01/selenium-docker:latest"
 		    }
          }
        }
