@@ -1,28 +1,33 @@
 pipeline {
- // master executor should be set to 0
-    //agent none - linux
-    agent any
+    agent none
     stages {
         stage('Build Jar') {
-          steps{
-              //sh
-            bat "mvn clean package -DskipTests"
-          }
-         }
-         stage('Build Image') {
-           steps {
-           	 bat "docker built -t="learndocker01.seleniumdocker" ."
+            agent {
+                docker {
+                    image 'maven:3-alpine'
+                    args '-v /root/.m2:/root/.m2'
+                }
             }
-         }
+            steps {
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+        stage('Build Image') {
+            steps {
+                script {
+                	app = docker.build("learndocker01/selenium-docker")
+                }
+            }
+        }
         stage('Push Image') {
-           steps {
-             withCredentials([usernamePassword(crdentials: 'Dockerhud', passwordVariable: 'pass', usernameVariable: 'user')]
-	        //sh
-   	          bat "docker login --username=${user} --password=%{pass}"
-	           bat "docker push learndocker01/selenium-docker:latest"
-		    }
-         }
-       }
+            steps {
+                script {
+			        docker.withRegistry('https://registry.hub.docker.com', 'Dockerhub') {
+			        	app.push("${BUILD_NUMBER}")
+			            app.push("latest")
+			        }
+                }
+            }
+        }
     }
-
 }
